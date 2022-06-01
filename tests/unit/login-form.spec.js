@@ -1,7 +1,5 @@
 import LoginForm from "@/components/LoginForm"
 import { shallowMount } from "@vue/test-utils"
-
- 
 describe("LoginForm", () => {
     const mockRouter = {
         push: jest.fn()
@@ -9,8 +7,10 @@ describe("LoginForm", () => {
     let wrapper;
     beforeEach(() => {
         wrapper = shallowMount(LoginForm, {
-            mocks: {
-                $router: mockRouter
+            global: {
+                mocks: {
+                    $router: mockRouter
+                }
             }
         })
     })
@@ -20,17 +20,18 @@ describe("LoginForm", () => {
     it("login button is disabled before entering email and password", () => {
         expect(wrapper.find("#login-btn").attributes().disabled).toBeDefined()
     })
-    it("Login button is enabled after entering valid email and password", () => {
-        wrapper.vm.$data.email.setData('habiba@gmail.com') 
-        wrapper.vm.$data.password.setData('A1234567')  
-        expect(wrapper.find("#login-btn").element.disabled).toBe(false)
-        
+    it("Login button is enabled after entering valid email and password", async () => {
+        wrapper.vm.$data.email = 'habiba@gmail.com'
+        wrapper.vm.$data.password = 'A1234567'
+        wrapper.vm.$nextTick(() => {
+            expect(wrapper.find("#login-btn").element.disabled).toBe(false)
+        });
     })
     it("Redirect to welcome page if a correct email and password entered", () => {
-        if(wrapper.vm.$data.email == 'mohamed@instabug.com' && wrapper.vm.$data.password == 'A12345678') {
-            expect(mockRouter.push).toHaveBeenCalledWith('/welcome')
-
-        }
+        wrapper.vm.$data.email = 'mohamed@instabug.com'
+        wrapper.vm.$data.password = 'A12345678'
+        wrapper.vm.login()
+        expect(mockRouter.push).toHaveBeenCalledWith('/welcome')
     }) 
     it("renders the display title", () => {
         expect(wrapper.find(".login-card__title").text()).toBe("Log in to Instabug")
