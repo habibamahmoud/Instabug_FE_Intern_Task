@@ -322,7 +322,7 @@ export default {
       &--primary {
         background-color: $primaryBtn;
         color: white;
-        border: 1px solid #acacac;
+        border: 1px solid $primaryBtn;
       }
       &__svg {
         height: 30px;
