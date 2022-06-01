@@ -3,7 +3,6 @@
     <div class="welcome-card__title">Welcome to {{ user }}</div>
     <button class="welcome-card__btn" @click="logout">Log out</button>
   </div>
-  <div v-else>{{ login() }}</div>
 </template>
 
 <script>
@@ -15,14 +14,15 @@ export default {
       logged: JSON.parse(localStorage.getItem("logged")),
     };
   },
-
+  mounted() {
+    if (!this.logged) {
+      this.$router.push("/login");
+    }
+  },
   methods: {
     logout() {
       localStorage.setItem("email", "");
       localStorage.setItem("logged", false);
-      this.$router.push("/login");
-    },
-    login() {
       this.$router.push("/login");
     },
   },

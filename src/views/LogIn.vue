@@ -5,7 +5,6 @@
       <login-form />
     </div>
   </div>
-  <div v-else>{{ welcomePage() }}</div>
 </template>
 
 <script>
@@ -22,11 +21,10 @@ export default {
       logged: JSON.parse(localStorage.getItem("logged")),
     };
   },
-
-  methods: {
-    welcomePage() {
+  mounted() {
+    if (this.logged) {
       this.$router.push("/welcome");
-    },
+    }
   },
 };
 </script>

@@ -1,5 +1,4 @@
 <template>
-  <div>{{ errorPage() }}</div>
   <div class="error-card">
     <img src="../assets/error.jpg" class="error-card__img" />
     <div class="error-card__error-msg">
@@ -14,10 +13,8 @@
 <script>
 export default {
   name: "ErrorScreen",
-  methods: {
-    errorPage() {
-      this.$router.push("/404");
-    },
+  mounted() {
+    this.$router.push("/404");
   },
 };
 </script>
