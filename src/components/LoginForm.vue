@@ -368,7 +368,7 @@ export default {
     background-color: #fce6e2;
     color: $textColor;
     border: 1px solid #dcdee3;
-    height: 30px;
+    height: 50px;
     font-weight: 500;
     padding-top: 3 * $padding;
     padding-left: $padding;
