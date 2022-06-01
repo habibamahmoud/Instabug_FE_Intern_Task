@@ -1,25 +1,27 @@
 <template>
   <div class="slider-card">
     <div class="slider-card__slider">
+      <input
+        type="radio"
+        name="radio-btn"
+        id="radio1"
+        class="slider-card__slider__slides__input"
+        checked
+      />
+      <input
+        type="radio"
+        name="radio-btn"
+        id="radio2"
+        class="slider-card__slider__slides__input"
+      />
+      <input
+        type="radio"
+        name="radio-btn"
+        id="radio3"
+        class="slider-card__slider__slides__input"
+      />
+
       <div class="slider-card__slider__slides">
-        <input
-          type="radio"
-          name="radio-btn"
-          id="radio1"
-          class="slider-card__slider__slides__input"
-        />
-        <input
-          type="radio"
-          name="radio-btn"
-          id="radio2"
-          class="slider-card__slider__slides__input"
-        />
-        <input
-          type="radio"
-          name="radio-btn"
-          id="radio3"
-          class="slider-card__slider__slides__input"
-        />
         <div class="slider-card__slider__slides__slide first">
           <svg
             width="521px"
@@ -2338,32 +2340,21 @@
             </g>
           </svg>
         </div>
-        <div
-          class="slider-card__slider__slides__navigation-auto navigation-auto"
-        >
-          <div
-            class="slider-card__slider__slides__navigation-auto__btn slider-card__slider__slides__navigation-auto__btn--btn1 auto-btn1"
-          ></div>
-          <div
-            class="slider-card__slider__slides__navigation-auto__btn slider-card__slider__slides__navigation-auto__btn--btn1 auto-btn2"
-          ></div>
-          <div
-            class="slider-card__slider__slides__navigation-auto__btn slider-card__slider__slides__navigation-auto__btn--btn1 auto-btn3"
-          ></div>
-        </div>
       </div>
+
+      <!-- Manual Navigation -->
       <div class="slider-card__slider__slides__navigation-manual">
         <label
           for="radio1"
-          class="slider-card__slider__slides__navigation-manual__btn manual-btn"
+          class="slider-card__slider__slides__navigation-manual__btn manual-btn manual-btn--radio1"
         ></label>
         <label
           for="radio2"
-          class="slider-card__slider__slides__navigation-manual__btn manual-btn"
+          class="slider-card__slider__slides__navigation-manual__btn manual-btn manual-btn--radio2"
         ></label>
         <label
           for="radio3"
-          class="slider-card__slider__slides__navigation-manual__btn manual-btn"
+          class="slider-card__slider__slides__navigation-manual__btn manual-btn manual-btn--radio3"
         ></label>
       </div>
     </div>
@@ -2391,45 +2382,43 @@ export default {
   background-color: #001f6a;
   margin: 0;
   padding: 0;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 
   &__slider {
-    width: 800px;
+    width: 100%;
     border-radius: 10px;
     overflow: hidden;
 
     &__slides {
-      width: 500%;
+      width: 300%;
       display: flex;
 
       &__input {
         display: none;
       }
       &__slide {
-        width: 20%;
-        transition: 2s;
+        width: 33.3%;
+        transition: 0.5s;
+        margin-top: -150px;
 
         &__img {
           margin-top: 15 * $margin;
-          width: 800px;
+          width: 100%;
         }
       }
       &__navigation-auto {
-        position: absolute;
         display: flex;
-        width: 800px;
+        align-items: center;
         justify-content: center;
-        margin-top: 65.5 * $margin;
       }
       &__navigation-manual {
-        position: absolute;
-        width: 800px;
-        margin-top: 10 * $margin;
         display: flex;
+        align-items: center;
         justify-content: center;
+        margin-top: 2.5 * $margin;
         &__btn {
           border: 2px solid white;
           padding: 4px;
@@ -2450,20 +2439,32 @@ export default {
   background: white;
 }
 
-#radio1:checked ~ .first {
+#radio1:checked
+  ~ .slider-card__slider__slides__navigation-manual
+  .manual-btn--radio1,
+#radio2:checked
+  ~ .slider-card__slider__slides__navigation-manual
+  .manual-btn--radio2,
+#radio3:checked
+  ~ .slider-card__slider__slides__navigation-manual
+  .manual-btn--radio3 {
+  background: white;
+}
+
+#radio1:checked ~ .slider-card__slider__slides .first {
   margin-left: 0;
 }
 
-#radio2:checked ~ .first {
-  margin-left: -20%;
+#radio2:checked ~ .slider-card__slider__slides .first {
+  margin-left: -33.33%;
 }
 
-#radio3:checked ~ .first {
-  margin-left: -40%;
+#radio3:checked ~ .slider-card__slider__slides .first {
+  margin-left: -66.66%;
 }
 
-#radio4:checked ~ .first {
-  margin-left: -60%;
+#radio4:checked ~ .slider-card__slider__slides .first {
+  margin-left: -100%;
 }
 
 .navigation-auto div {

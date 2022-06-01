@@ -477,7 +477,6 @@ export default {
     width: 100%;
     padding: 5 * $padding;
     margin-top: 6 * $margin;
-    margin-right: 8em;
     position: relative;
   }
 }
