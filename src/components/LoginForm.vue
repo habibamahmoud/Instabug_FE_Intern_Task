@@ -61,7 +61,11 @@
         <p class="login-card__social-buttons__btn__paragraph">Microsoft</p>
       </button>
     </div>
-    <div class="login-card__seprator">OR</div>
+    <div class="login-card__seprator row">
+      <hr class="login-card__seprator__hr" />
+      <div class="login-card__seprator__text">OR</div>
+      <hr class="login-card__seprator__hr" />
+    </div>
     <div class="login-card--invalid-data" v-if="invalidData">
       {{ invalidData }}
     </div>
@@ -76,20 +80,37 @@
         v-model="email"
         v-bind:class="{ 'is-invalid': validation.invalid.email }"
       />
-      <div class="invalid-feedback" v-if="validation.invalid.email">
+      <div
+        class="login-card__form__validate-email login-card__form--invalid-feedback"
+        v-if="validation.invalid.email"
+      >
         {{ validation.invalid.email }}
       </div>
-      <label for="password" class="login-card__form__label">Password</label>
+      <div class="login-card__form__password row">
+        <div
+          class="login-card__form__password__label login-card__form__password__label--left"
+        >
+          <label for="password">Password</label>
+        </div>
+        <div
+          class="login-card__form__password__text login-card__form__password__text--right"
+        >
+          <p>Forgot Password?</p>
+        </div>
+      </div>
       <input
         type="password"
         id="password"
-        placeholder="8+ Characters"
+        placeholder="6+ Characters"
         class="login-card__form__input"
         required
         v-model="password"
         :class="{ 'is-invalid': validation.invalid.password }"
       />
-      <div class="invalid-feedback" v-if="validation.invalid.password">
+      <div
+        class="login-card__form--invalid-feedback"
+        v-if="validation.invalid.password"
+      >
         {{ validation.invalid.password }}
       </div>
       <button
@@ -325,9 +346,23 @@ export default {
     }
   }
   &__seprator {
-    color: $textColor;
-    font-weight: bold;
-    margin: 1.8 * $margin;
+    margin-top: 1.8 * $margin;
+    margin-bottom: 1.8 * $margin;
+    align-items: flex-start;
+    &__text {
+      color: $textColor;
+      font-weight: bold;
+      flex-basis: 18%;
+      margin: -10px;
+      margin-left: -30px;
+      margin-right: -30px;
+    }
+    &__hr {
+      flex-basis: 40%;
+      margin: 0px;
+      color: $textColor;
+      background-color: #edeff1;
+    }
   }
   &--invalid-data {
     background-color: #fce6e2;
@@ -335,7 +370,7 @@ export default {
     border: 1px solid #dcdee3;
     height: 30px;
     font-weight: 500;
-    padding-top: 4 * $padding;
+    padding-top: 3 * $padding;
     padding-left: $padding;
     text-align: left;
     margin-bottom: 1.5 * $margin;
@@ -364,6 +399,33 @@ export default {
         color: white;
         border: 1px solid #acacac;
       }
+    }
+    &__password {
+      flex-basis: 100%;
+      &__label {
+        flex-basis: 46%;
+        color: $textColor;
+        padding: 0;
+        &--left {
+          text-align: left;
+          padding-top: 3.4 * $padding;
+        }
+      }
+      &__text {
+        flex-basis: 46%;
+        color: rgb(190, 188, 188);
+        display: inline-block;
+        &--right {
+          text-align: right;
+        }
+      }
+    }
+    &--invalid-feedback {
+      color: red;
+      font-size: 14px;
+      flex-basis: 100%;
+      text-align: left;
+      margin-bottom: 3 * $margin;
     }
   }
   &__options {
@@ -407,35 +469,12 @@ export default {
 .row {
   @include flexCenter();
 }
-button {
-  box-shadow: 0px 0px 20px rgba(163, 171, 185, 0.24);
-  border-radius: 5px;
-  border: none;
-  font-weight: bold;
-  margin-bottom: 0.8em;
-}
-
-button:disabled {
-  background-color: #ccc;
-}
-
-a {
-  text-decoration: none;
-}
-::placeholder {
-  padding: 4 * $padding;
-  color: $lightGray;
-}
-.invalid-feedback {
-  color: red;
-  font-size: 14px;
-  flex-basis: 100%;
-  text-align: left;
-  margin-bottom: 3 * $margin;
+.is-invalid {
+  border: 1px solid red;
 }
 @media (min-width: 800px) {
   .login-card {
-    width: 30%;
+    width: 100%;
     padding: 5 * $padding;
     margin-top: 6 * $margin;
     margin-right: 8em;

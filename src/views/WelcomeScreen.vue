@@ -12,12 +12,8 @@ export default {
   data() {
     return {
       user: localStorage.getItem("email"),
-      logged: localStorage.getItem("logged"),
+      logged: JSON.parse(localStorage.getItem("logged")),
     };
-  },
-  mounted() {
-    this.logged = JSON.parse(this.logged);
-    console.log(this.logged);
   },
 
   methods: {

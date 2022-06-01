@@ -41,6 +41,19 @@ export default {
 .child2 {
   flex-basis: 100%;
 }
+@media (min-width: 600px) {
+  .row {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+  }
+  .child1 {
+    display: none;
+  }
+  .child2 {
+    flex-basis: 100%;
+  }
+}
 @media (min-width: 800px) {
   .row {
     display: flex;
@@ -48,11 +61,11 @@ export default {
     justify-content: space-between;
   }
   .child1 {
-    flex-basis: 50%;
+    flex-basis: 45%;
     display: inline;
   }
   .child2 {
-    flex-basis: 30%;
+    flex-basis: 35%;
     display: inline;
   }
 }
