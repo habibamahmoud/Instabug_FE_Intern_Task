@@ -1,8 +1,9 @@
 <template>
-  <div class="row">
+  <div class="row" v-if="!logged">
     <slider-card class="child1" />
     <login-form class="child2" />
   </div>
+  <div v-else>{{ welcomePage() }}</div>
 </template>
 
 <script>
@@ -14,6 +15,17 @@ export default {
     LoginForm,
     SliderCard,
   },
+  data() {
+    return {
+      logged: JSON.parse(localStorage.getItem("logged")),
+    };
+  },
+
+  methods: {
+    welcomePage() {
+      this.$router.push("/welcome");
+    },
+  },
 };
 </script>
 
@@ -21,15 +33,20 @@ export default {
 .row {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 .child1 {
-  flex-basis: 100%;
+  display: none;
 }
 .child2 {
   flex-basis: 100%;
 }
 @media (min-width: 800px) {
+  .row {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+  }
   .child1 {
     flex-basis: 50%;
     display: inline;

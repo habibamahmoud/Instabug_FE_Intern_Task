@@ -62,22 +62,47 @@
       </button>
     </div>
     <div class="login-card__seprator">OR</div>
-    <form class="login-card__form row">
+    <div class="login-card--invalid-data" v-if="invalidData">
+      {{ invalidData }}
+    </div>
+    <form class="login-card__form row" @submit.prevent="login">
       <label for="email" class="login-card__form__label">Work Email</label>
       <input
         type="text"
         id="email"
         placeholder="you@company.com"
         class="login-card__form__input"
+        required
+        v-model="email"
+        v-bind:class="{ 'is-invalid': validation.invalid.email }"
       />
+      <div class="invalid-feedback" v-if="validation.invalid.email">
+        {{ validation.invalid.email }}
+      </div>
       <label for="password" class="login-card__form__label">Password</label>
       <input
         type="password"
         id="password"
         placeholder="8+ Characters"
         class="login-card__form__input"
+        required
+        v-model="password"
+        :class="{ 'is-invalid': validation.invalid.password }"
       />
-      <button class="login-card__form__btn login-card__form__btn--primary">
+      <div class="invalid-feedback" v-if="validation.invalid.password">
+        {{ validation.invalid.password }}
+      </div>
+      <button
+        class="login-card__form__btn login-card__form__btn--primary"
+        type="submit"
+        id="login-btn"
+        :disabled="
+          !this.email ||
+          !this.password ||
+          !!validation.invalid.email ||
+          !!validation.invalid.password
+        "
+      >
         Log in
       </button>
     </form>
@@ -164,16 +189,95 @@
 <script>
 export default {
   name: "LoginForm",
+  data() {
+    return {
+      email: "",
+      password: "",
+      logged: false,
+      usersData: [
+        { email: "mohamed@instabug.com", password: "A12345678" },
+        { email: "mohamed1@instabug.com", password: "A12345678" },
+        { email: "mohamed2@instabug.com", password: "A12345678" },
+        { email: "mohamed3@instabug.com", password: "A12345678" },
+        { email: "mohamed4@instabug.com", password: "A12345678" },
+        { email: "mohamed5@instabug.com", password: "A12345678" },
+        { email: "mohamed6@instabug.com", password: "A12345678" },
+        { email: "mohamed7@instabug.com", password: "A12345678" },
+      ],
+      validation: {
+        invalid: {
+          email: "",
+          password: "",
+        },
+      },
+      email_name: "",
+      invalidData: "",
+    };
+  },
+  computed: {},
+  methods: {
+    validateEmail() {
+      if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(this.email)) {
+        this.validation.invalid.email = "Enter a valid email address.";
+        console.log(this.validation.invalid.email);
+      } else {
+        this.validation.invalid.email = "";
+      }
+    },
+    validatePassword() {
+      this.email_name = this.email?.match(/.+?(?=@)/)?.[0];
+      if (this.password.includes(this.email_name)) {
+        this.validation.invalid.password =
+          "Your password shouldn't include your email address name";
+      } else if (!/(?=.*[A-Z])(?=.*\d)/.test(this.password)) {
+        this.validation.invalid.password =
+          "Password must contain at least one uppercase letter and number";
+      } else if (this.password.length < 6) {
+        this.validation.invalid.password =
+          "Password must be 6 characters or more";
+      } else {
+        this.validation.invalid.password = "";
+      }
+    },
+    validateFields() {
+      this.validateEmail();
+      this.validatePassword();
+    },
+    login() {
+      this.validateFields();
+      this.usersData.filter((user) => {
+        if (this.password == user.password && this.email == user.email) {
+          this.logged = true;
+          localStorage.setItem("logged", this.logged);
+          localStorage.setItem("email", this.email);
+          this.invalidData = "";
+        } else {
+          this.invalidData = "Your email and/or password are incorrect";
+        }
+      });
+      if (JSON.parse(localStorage.getItem("logged"))) {
+        this.$router.push("/welcome");
+      }
+      console.log(this.logged);
+      console.log(localStorage.getItem("email"));
+    },
+  },
+  watch: {
+    email() {
+      this.validateEmail();
+    },
+    password() {
+      this.validatePassword();
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
 @import "../styles.scss";
 
 .login-card {
-  width: 30%;
   padding: 5 * $padding;
   margin-top: 6 * $margin;
-  margin-right: 8em;
   position: relative;
 
   &__icon {
@@ -225,6 +329,17 @@ export default {
     font-weight: bold;
     margin: 1.8 * $margin;
   }
+  &--invalid-data {
+    background-color: #fce6e2;
+    color: $textColor;
+    border: 1px solid #dcdee3;
+    height: 30px;
+    font-weight: 500;
+    padding-top: 4 * $padding;
+    padding-left: $padding;
+    text-align: left;
+    margin-bottom: 1.5 * $margin;
+  }
   &__form {
     &__label {
       flex-basis: 100%;
@@ -238,6 +353,7 @@ export default {
       border-radius: 4px;
       border: 1px solid #dcdee3;
       margin-bottom: $margin;
+      padding: $padding;
     }
     &__btn {
       flex-basis: 100%;
@@ -298,11 +414,32 @@ button {
   font-weight: bold;
   margin-bottom: 0.8em;
 }
+
+button:disabled {
+  background-color: #ccc;
+}
+
 a {
   text-decoration: none;
 }
 ::placeholder {
   padding: 4 * $padding;
   color: $lightGray;
+}
+.invalid-feedback {
+  color: red;
+  font-size: 14px;
+  flex-basis: 100%;
+  text-align: left;
+  margin-bottom: 3 * $margin;
+}
+@media (min-width: 800px) {
+  .login-card {
+    width: 30%;
+    padding: 5 * $padding;
+    margin-top: 6 * $margin;
+    margin-right: 8em;
+    position: relative;
+  }
 }
 </style>
