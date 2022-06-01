@@ -358,9 +358,9 @@ export default {
       margin-right: -30px;
     }
     &__hr {
-      flex-basis: 40%;
+      flex-basis: 45%;
       margin: 0px;
-      color: $textColor;
+      color: #edeff1;
       background-color: #edeff1;
     }
   }
