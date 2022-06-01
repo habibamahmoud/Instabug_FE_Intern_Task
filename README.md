@@ -2,6 +2,7 @@
 
 ## Table of Contents
 
+- [Deployed App](https://instabug-fe-intern-task.vercel.app/login)
 - [About the Project](#about)
   - [Build with](#build-with)
 - [Getting Started](#getting-started)
@@ -10,7 +11,10 @@
 - [Screenshots](#screenshots)
 - [Responsive Sreenshots](#responsive-screenshots)
 - [Testing](#testing)
-- [Deployed App](https://instabug-fe-intern-task.vercel.app/login)
+
+## Deployed App
+
+The app is deployed by Vercel at [https://instabug-fe-intern-task.vercel.app/login](https://instabug-fe-intern-task.vercel.app/login)
 
 ## About
 
@@ -91,14 +95,14 @@ npm run test:unit
 
 > Automation testion using Cypress:
 
-1.           Enter an email address that doesn’t exist in the login list
+1.            Enter an email address that doesn’t exist in the login list
 
         Enter any password
 
         Click on the login button
         Validate that the errormessage ‘you email and/or password are incorrect’ shows
 
-2.           Enter an email address that exists in the login list
+2.            Enter an email address that exists in the login list
 
         Enter any wrong password
 
@@ -106,7 +110,7 @@ npm run test:unit
 
         Validate that the error message ‘you email and/or password are incorrect’ shows
 
-3.           Enter an email address that exists in the login list
+3.            Enter an email address that exists in the login list
 
         Enter the right password
 
@@ -114,7 +118,7 @@ npm run test:unit
 
         Validate that the browser will redirect to the welcome page
 
-4.           Enter not a valid email address ‘dddd’
+4.            Enter not a valid email address ‘dddd’
 
         Un-focus the textbox
 
@@ -122,7 +126,7 @@ npm run test:unit
 
         Validate that the textbox border will be red
 
-5.           Enter a right email and password
+5.            Enter a right email and password
 
         Click login button
 
@@ -132,8 +136,8 @@ npm run test:unit
 
 > Unit Testing using Jest:
 
-1.      Validate that the user is not logged in when the login page loaded
-2.      Validate that the login button is disabled before entering a valid email and password
-3.      Validate that ;ogin button is enabled after entering valid email and password
-4.      Validate that app redirect to welcome page if a correct email and password entered
-5.      Validate that the login page render its components correctly
+1.       Validate that the user is not logged in when the login page loaded
+2.       Validate that the login button is disabled before entering a valid email and password
+3.       Validate that ;ogin button is enabled after entering valid email and password
+4.       Validate that app redirect to welcome page if a correct email and password entered
+5.       Validate that the login page render its components correctly
