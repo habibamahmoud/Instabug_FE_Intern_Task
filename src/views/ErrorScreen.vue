@@ -1,8 +1,10 @@
 <template>
   <div class="error-card">
-    <img src="../assets/error.jpg" class="error-card__img" />
+    <div class="error-card__error-msg__img">
+      <error-image />
+    </div>
     <div class="error-card__error-msg">
-      <div class="error-card__error-msg__title">404 - Page Not Found !</div>
+      <div class="error-card__error-msg__title">404 - Page Not Found!</div>
       <div class="error-card__error-msg__body">
         Sorry, that page doesn't exist. What would you like to do?
       </div>
@@ -11,8 +13,13 @@
 </template>
 
 <script>
+import ErrorImage from "@/components/ErrorImage.vue";
+
 export default {
   name: "ErrorScreen",
+  components: {
+    ErrorImage,
+  },
   mounted() {
     this.$router.push("/404");
   },
@@ -23,9 +30,6 @@ export default {
 @import "../styles.scss";
 
 .error-card {
-  &__img {
-    width: 30%;
-  }
   &__error-msg {
     @include flexCenter();
 
@@ -41,6 +45,10 @@ export default {
       flex-basis: 100%;
       color: $textColor;
       font-family: $fontFamily;
+    }
+    &__img {
+      margin: auto;
+      margin-top: 5%;
     }
   }
 }
