@@ -360,7 +360,7 @@ export default {
       font-size: 14px;
       flex-basis: 100%;
       text-align: left;
-      margin-bottom: 3 * $margin;
+      margin-bottom: $margin;
     }
   }
   &__options {
