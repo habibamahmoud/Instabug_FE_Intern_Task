@@ -322,6 +322,8 @@ export default {
       border: 1px solid #dcdee3;
       margin-bottom: $margin;
       padding: $padding;
+      padding-left: 3 * $padding;
+      padding-right: 3 * $padding;
     }
     &__btn {
       flex-basis: 100%;
